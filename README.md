@@ -69,8 +69,6 @@ RecordCvApp/
 │   │   ├── IDiscService.cs   / DiscService.cs
 │   │   ├── IRecordService.cs / RecordService.cs
 │   │   └── ITrackService.cs  / TrackService.cs
-│   ├── NullableTimeOnlyTypeHandler.cs
-│   ├── TimeOnlyTypeHandler.cs
 │   ├── appsettings.json
 │   ├── RecordCv.csproj
 │   └── Program.cs
