@@ -21,13 +21,13 @@ namespace RecordCv
                 // Repositories
                 services.AddScoped<IArtistRepository, ArtistRepository>();
                 services.AddScoped<IRecordRepository, RecordRepository>();
-                //services.AddScoped<IDiscRepository, DiscRepository>();
+                services.AddScoped<IDiscRepository, DiscRepository>();
                 //services.AddScoped<ITrackRepository, TrackRepository>();
 
                 // Services
                 services.AddScoped<IArtistService, ArtistService>();
                 services.AddScoped<IRecordService, RecordService>();
-                //services.AddScoped<IDiscService, DiscService>();
+                services.AddScoped<IDiscService, DiscService>();
                 //services.AddScoped<ITrackService, TrackService>();
             });
 
@@ -46,12 +46,22 @@ namespace RecordCv
             // -----------------------------------------------------------------------
             // Record — generate INSERT scripts via the Record service
             // -----------------------------------------------------------------------
-            var recordService = host.Services.GetRequiredService<IRecordService>();
-            var recordInserts = await recordService.GenerateInsertsAsync();
+            //var recordService = host.Services.GetRequiredService<IRecordService>();
+            //var recordInserts = await recordService.GenerateInsertsAsync();
 
-            const string recordSqlFile = "Record.sql";
-            await File.WriteAllLinesAsync(recordSqlFile, recordInserts);
-            Console.WriteLine($"Record INSERT statements written to {Path.GetFullPath(recordSqlFile)}");
+            //const string recordSqlFile = "Record.sql";
+            //await File.WriteAllLinesAsync(recordSqlFile, recordInserts);
+            //Console.WriteLine($"Record INSERT statements written to {Path.GetFullPath(recordSqlFile)}");
+
+            // -----------------------------------------------------------------------
+            // Disc — generate INSERT scripts via the Disc service
+            // -----------------------------------------------------------------------
+            var discService = host.Services.GetRequiredService<IDiscService>();
+            var discInserts = await discService.GenerateInsertsAsync();
+
+            const string discSqlFile = "Disc.sql";
+            await File.WriteAllLinesAsync(discSqlFile, discInserts);
+            Console.WriteLine($"Disc INSERT statements written to {Path.GetFullPath(discSqlFile)}");
         }
     }
 }
