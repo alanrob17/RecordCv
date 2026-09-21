@@ -22,13 +22,13 @@ namespace RecordCv
                 services.AddScoped<IArtistRepository, ArtistRepository>();
                 services.AddScoped<IRecordRepository, RecordRepository>();
                 services.AddScoped<IDiscRepository, DiscRepository>();
-                //services.AddScoped<ITrackRepository, TrackRepository>();
+                services.AddScoped<ITrackRepository, TrackRepository>();
 
                 // Services
                 services.AddScoped<IArtistService, ArtistService>();
                 services.AddScoped<IRecordService, RecordService>();
                 services.AddScoped<IDiscService, DiscService>();
-                //services.AddScoped<ITrackService, TrackService>();
+                services.AddScoped<ITrackService, TrackService>();
             });
 
                 var host = builder.Build();
@@ -56,12 +56,24 @@ namespace RecordCv
             // -----------------------------------------------------------------------
             // Disc — generate INSERT scripts via the Disc service
             // -----------------------------------------------------------------------
-            var discService = host.Services.GetRequiredService<IDiscService>();
-            var discInserts = await discService.GenerateInsertsAsync();
+            //var discService = host.Services.GetRequiredService<IDiscService>();
+            //var discInserts = await discService.GenerateInsertsAsync();
 
-            const string discSqlFile = "Disc.sql";
-            await File.WriteAllLinesAsync(discSqlFile, discInserts);
-            Console.WriteLine($"Disc INSERT statements written to {Path.GetFullPath(discSqlFile)}");
+            //const string discSqlFile = "Disc.sql";
+            //await File.WriteAllLinesAsync(discSqlFile, discInserts);
+            //Console.WriteLine($"Disc INSERT statements written to {Path.GetFullPath(discSqlFile)}");
+
+            // -----------------------------------------------------------------------
+            // Track — generate INSERT scripts via the Track service
+            // -----------------------------------------------------------------------
+            var trackService = host.Services.GetRequiredService<ITrackService>();
+            var trackInserts = await trackService.GenerateInsertsAsync();
+
+            const string trackSqlFile = "Track.sql";
+            await File.WriteAllLinesAsync(trackSqlFile, trackInserts);
+            Console.WriteLine($"Track INSERT statements written to {Path.GetFullPath(trackSqlFile)}");
+
+            await host.RunAsync();
         }
     }
 }
